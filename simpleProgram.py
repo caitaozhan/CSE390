@@ -2,6 +2,12 @@ __author__ = 'Caitao Zhan'
 __email__  = 'caitao.zhan@stonybrook.edu'
 
 
+"""Description:
+A simple program that generates x random numbers and computes mean, 
+std dev, median, variance, etc. Maybe also sort and plot the points.
+"""
+
+
 import random
 import statistics
 import numpy as np
@@ -26,7 +32,7 @@ def randomSeq(x, n=10):
 
 
 if __name__ == '__main__':
-    print('Generate a sequence of twenty random integers.')
+    print('Generate a sequence of fifty random integers.')
     sequence = randomSeq(50)
     print(sequence)
     

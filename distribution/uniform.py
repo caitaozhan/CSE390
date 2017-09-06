@@ -3,7 +3,7 @@ __email__  = 'caitao.zhan@stonybrook.edu'
 
 
 import random
-
+ 
 
 def uniform(x, a, b):
     """Generates a random uniform sequence, where each floating point number is between [a, b].
