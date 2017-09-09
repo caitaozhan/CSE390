@@ -9,7 +9,7 @@ std dev, median, variance, etc. Maybe also sort and plot the points.
 
 
 import random
-import statistics
+import statistics as stat
 import numpy as np
 import matplotlib.pyplot as plt
 # Caveat! Python-3.6.0(64-bit) crashes with numpy-1.13, thus causing matplotlib unable to import
@@ -36,10 +36,10 @@ if __name__ == '__main__':
     sequence = randomSeq(50)
     print(sequence)
     
-    print('Mean     = %f' % statistics.mean(sequence))
-    print('Std dev  = %f' % statistics.stdev(sequence))
-    print('Median   = %f' % statistics.median(sequence))
-    print('Variance = %f' % statistics.variance(sequence))
+    print('Mean     = %f' % stat.mean(sequence))
+    print('Std dev  = %f' % stat.stdev(sequence))
+    print('Median   = %f' % stat.median(sequence))
+    print('Variance = %f' % stat.variance(sequence))
     
     plt.plot(sequence, 'ro')
     x_axis = np.arange(len(sequence))
