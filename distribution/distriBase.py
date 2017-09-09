@@ -7,13 +7,15 @@ class DistriBase:
     
     Attributes:
         name (str): the name of the distribution
-        X   (list): the value of x-axis
-        Y   (list): the value of y-axis
+        X   (list): x-axis 
+        P   (list): y-axis (Probability distribution)
+        C   (list): y-axis (Cumulative  distribution)
     """
     def __init__(self, distriName):
         self.name = distriName
-        self.X = []      # x-axis
-        self.Y = []      # y-axis (value is probability)
+        self.X = []
+        self.P = []
+        self.C = []
 
     def setName(self, distriName):
         self.name = distriName
@@ -21,16 +23,12 @@ class DistriBase:
     def getName(self):
         return self.name
 
-    def plotPDF(self):
-        """Plot the probability distribution function."""
-        pass 
-
-    def plotCDF(self):
-        """Plot the cumulative distribution function."""
+    def plot(self):
+        """Plot probability distribution function and cumulative distribution function."""
         pass
-
 
 if __name__ == '__main__':
     distriBase = DistriBase('caitao')
     print(distriBase.getName())
+
 

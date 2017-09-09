@@ -6,43 +6,54 @@ from distriBase import DistriBase
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class Bernoulli(DistriBase):
     """Bernolli Distribution.
     
     Attributes:
         p (float): the paramater of bernoulli distribution.
     """
+
     def __init__(self, distriName, p):
         """Initialize bernolli distribution with paramater p
 
         Args:
             distriName (str): distribution's name
-            p (float)       : distribution's paramater, range (0, 1)
+            p (float)       : distribution's paramater, range=(0, 1)
         """
         DistriBase.__init__(self, distriName)
         self.p = p
         self.X = [0, 1]
-        self.Y = [1-p, p]
+        self.P = [1-p, p]
+        self.C = [1-p, 1]
 
-    def print(self):
-        print('Name = ' + self.getName())
-        print('P = %f' % self.p)
+    def __str__(self):
+        return 'Name = %s, p = %f' % (self.getName(), self.p)
 
-        
-    def plotPDF(self):
-        plt.bar(self.X, self.Y, 0.4)
+    def plot(self):
+        plt.figure('Probability Distribution')
+        plt.bar(self.X, self.P, 0.6)
         x_axis = np.arange(len(self.X))
         y_axis = np.arange(0, 1.1, 0.1)
         plt.xticks(x_axis)
         plt.yticks(y_axis)
         plt.xlabel('x')
         plt.ylabel('Pr[X=x]')
-        plt.title(self.name)
-        plt.grid()
+        plt.title(str(self))
+
+        plt.figure('Cumulative Distribution')
+        plt.bar(self.X, self.C, 0.6)
+        x_axis = np.arange(len(self.X))
+        y_axis = np.arange(0, 1.1, 0.1)
+        plt.xticks(x_axis)
+        plt.yticks(y_axis)
+        plt.xlabel('x')
+        plt.ylabel('Pr[X<=x]')
+        plt.title(str(self))
+
         plt.show()
-        
+
 
 if __name__ == '__main__':
     bernoulli = Bernoulli('Bernoulli', 0.3)
-    bernoulli.print()
-    bernoulli.plotPDF()
+    bernoulli.plot()
