@@ -11,17 +11,16 @@ class Bernoulli(DistriBase):
     """Bernolli Distribution.
     
     Attributes:
-        p (float): the paramater of bernoulli distribution.
+        p (float): distribution's paramater, range=(0, 1)
     """
 
-    def __init__(self, distriName, p):
+    def __init__(self, p):
         """Initialize bernolli distribution with paramater p
 
         Args:
-            distriName (str): distribution's name
-            p (float)       : distribution's paramater, range=(0, 1)
+            p (float): distribution's paramater, range=(0, 1)
         """
-        DistriBase.__init__(self, distriName)
+        DistriBase.__init__(self, 'Bernoulli')
         self.p = p
         self.X = [0, 1]
         self.P = [1-p, p]
@@ -55,5 +54,5 @@ class Bernoulli(DistriBase):
 
 
 if __name__ == '__main__':
-    bernoulli = Bernoulli('Bernoulli', 0.3)
+    bernoulli = Bernoulli(0.3)
     bernoulli.plot()
