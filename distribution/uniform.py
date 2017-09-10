@@ -2,24 +2,67 @@ __author__ = 'Caitao Zhan'
 __email__  = 'caitao.zhan@stonybrook.edu'
 
 
-import random
- 
+from distriBase import DistriBase
+import numpy as np
+import matplotlib.pyplot as plt
 
-def uniform(x, a, b):
-    """Generates a random uniform sequence, where each floating point number is between [a, b].
-    
-    Args:
-        a (float): start-point value
-        b (float): end-point value
-        n (int)  : the number of random numbers to be generated
-    
-    Returns:
-        list: A sequence of floating point numbers
+
+class Uniform(DistriBase):
+    """Uniform distribution. 
+
+    Agrs:
+        a (int): left  bound
+        b (int): right bound
     """
-    sequence = []
-    for i in range(x):
-        sequence.append(random.uniform(a, b))
-    return sequence
+
+    def __init__(self, a, b):
+        """Initialize uniform distribution with paramater a and b
+           P(i) = 1/(b-a), a <= i < b
+           P(i) = 0      , i < a or i >= b
+
+        Args:
+             a (float): left  bound
+             b (float): right bound
+        """
+        DistriBase.__init__(self, 'Uniform')
+        self.a = a
+        self.b = b
+        y_value = 1.0 / (b-a)
+        numSam = 1000          # number of samples
+        self.C = [ 0 for i in range(numSam)]
+        self.X = np.linspace(a-1, b+1, num=numSam, endpoint=False)
+        x_scale = (b-a+2)/1000.0
+        for i in range(numSam):
+            if (a-1 + i*x_scale) >= a and (a-1 + i*x_scale) < b:
+                self.P.append(y_value)
+            else:
+                self.P.append(0)
+            self.C[i] = self.C[i-1] + self.P[i]*x_scale
+
+    def __str__(self):
+        return 'Name = %s, a = %f, b = %f' % (self.getName(), self.a, self.b)
+
+    def plot(self):
+        plt.figure('Probability Distribution')
+        plt.plot(self.X, self.P)
+        y_scale = max(self.P) / 10
+        y_axis = np.arange(0, max(self.P)+y_scale, y_scale)
+        plt.yticks(y_axis)
+        plt.xlabel('x')
+        plt.ylabel('Pr[X=x]')
+        plt.title(str(self))
+        plt.grid()
+
+        plt.figure('Cumulative Distribution')
+        plt.plot(self.X, self.C)
+        plt.xlabel('x')
+        plt.ylabel('Pr[X<=x]')
+        plt.title(str(self))
+        plt.grid()
+
+        plt.show()
 
 
-
+if __name__ == '__main__':
+    uniform = Uniform(1.1, 2.2)
+    uniform.plot()

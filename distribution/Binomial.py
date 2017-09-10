@@ -27,7 +27,7 @@ class Binomial(DistriBase):
         self.n = n
         self.p = p
         self.X = np.arange(0,n)
-        for i in range(n):               # simple way: self.P = numpy.random.binomial(n, p)
+        for i in range(n):
             self.P.append(comb(n,i) * (p**i) * ((1-p)**(n-i)) )  
         self.C.append(self.P[0])
         for i in range(1, n):
