@@ -48,6 +48,7 @@ class Exponential(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/exponential-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -55,6 +56,7 @@ class Exponential(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/exponential-cdf.png')
 
         plt.show()
 

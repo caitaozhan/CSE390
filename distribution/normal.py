@@ -67,6 +67,7 @@ class Normal(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/normal-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -77,6 +78,7 @@ class Normal(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/normal-cdf.png')
 
         plt.show()
 

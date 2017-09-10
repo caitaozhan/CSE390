@@ -54,6 +54,7 @@ class Uniform(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/uniform-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -61,6 +62,7 @@ class Uniform(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/uniform-cdf.png')
 
         plt.show()
 

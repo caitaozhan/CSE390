@@ -46,6 +46,7 @@ class Binomial(DistriBase):
         plt.xlabel('x')
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
+        #plt.savefig('figures/binomial-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -57,6 +58,7 @@ class Binomial(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
+        #plt.savefig('figures/binomial-cdf.png')
 
         plt.show()
 
