@@ -11,14 +11,14 @@ class Uniform(DistriBase):
     """Uniform distribution. 
 
     Agrs:
-        a (int): left  bound
-        b (int): right bound
+        a (float): left  bound
+        b (float): right bound
     """
 
     def __init__(self, a, b):
         """Initialize uniform distribution with paramater a and b
-           P(i) = 1/(b-a), a <= i < b
-           P(i) = 0      , i < a or i >= b
+           P(x) = 1/(b-a), a <= x < b
+           P(x) = 0      , x < a or x >= b
 
         Args:
              a (float): left  bound
@@ -29,14 +29,16 @@ class Uniform(DistriBase):
         self.b = b
         y_value = 1.0 / (b-a)
         numSam = 1000          # number of samples
+        self.P = [ 0 for i in range(numSam)]
         self.C = [ 0 for i in range(numSam)]
         self.X = np.linspace(a-1, b+1, num=numSam, endpoint=False)
         x_scale = (b-a+2)/1000.0
-        for i in range(numSam):
+        for i in range(0, numSam):
             if (a-1 + i*x_scale) >= a and (a-1 + i*x_scale) < b:
-                self.P.append(y_value)
+                self.P[i] = y_value
             else:
-                self.P.append(0)
+                self.P[i] = 0
+        for i in range(1, numSam):
             self.C[i] = self.C[i-1] + self.P[i]*x_scale
 
     def __str__(self):
