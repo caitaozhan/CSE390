@@ -5,6 +5,7 @@ __email__  = 'caitao.zhan@stonybrook.edu'
 from distriBase import DistriBase
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import special
 
 
 class Normal(DistriBase):
@@ -27,17 +28,12 @@ class Normal(DistriBase):
         self.m = m
         self.v = v
         self.xLen = np.sqrt(v) * 8       # plot data between [m - 4*sqrt(v), m + 4*sqrt(v)]
-        len = self.xLen / 2.0              # len = 4*sqrt(v)
-        numSam = 1000                    # number of samples
-        x_scale = float(self.xLen)/numSam
-        self.X = np.linspace(m-len, m+len, num=numSam, endpoint=False)
-        self.P = [0 for i in range(numSam)]
-        self.C = [0 for i in range(numSam)]
-        for i in range(numSam):
-            self.P[i] = np.exp( -((m-len + i*x_scale)-m)**2 / (2*v) ) / np.sqrt(2*np.pi*v)
-        self.C[0] = self.P[0]*x_scale
-        for i in range(1, numSam):
-            self.C[i] = self.C[i-1] + self.P[i]*x_scale
+        len = self.xLen / 2.0            # len = 4*sqrt(v)
+        self.X = np.linspace(m-len, m+len, num=1000, endpoint=False)
+        for i in self.X:
+            self.P.append(np.exp( -(i-m)**2 / (2*v) ) / np.sqrt(2*np.pi*v) )
+        for i in self.X:
+            self.C.append( (1 + special.erf( (i-m) / (np.sqrt(v*2))) ) / 2 )
 
     def __str__(self):
         return 'Name = %s, mean = %f, variance = %f' % (self.getName(), self.m, self.v)
@@ -67,7 +63,6 @@ class Normal(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/normal-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -78,7 +73,6 @@ class Normal(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/normal-cdf.png')
 
         plt.show()
 
@@ -86,5 +80,3 @@ class Normal(DistriBase):
 if __name__ == '__main__':
     normal = Normal(-2, 4)
     normal.plot()
-
-

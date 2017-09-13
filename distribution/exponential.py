@@ -24,16 +24,11 @@ class Exponential(DistriBase):
         """
         DistriBase.__init__(self, 'Exponential')
         self.lamb = lamb
-        numSam = 2000      # number of samples
-        x_scale = float(10-0)/numSam
-        self.X = np.linspace(0, 10, num=numSam, endpoint=False)
-        self.P = [0 for i in range(numSam)]
-        self.C = [0 for i in range(numSam)]
-        for i in range(numSam):
-            self.P[i] = lamb * np.exp(-lamb * (i*x_scale))
-        self.C[0] = self.P[0]*x_scale
-        for i in range(1, numSam):
-            self.C[i] = self.C[i-1] + self.P[i]*x_scale
+        self.X = np.linspace(0, 10, num=1000, endpoint=False)
+        for i in self.X:
+            self.P.append( lamb * np.exp(-lamb * i) )
+        for i in self.X:
+            self.C.append( 1 - np.exp(-lamb * i) )
 
     def __str__(self):
         return 'Name = %s, lambda = %f' % (self.getName(), self.lamb)
@@ -48,7 +43,6 @@ class Exponential(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/exponential-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -56,7 +50,6 @@ class Exponential(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/exponential-cdf.png')
 
         plt.show()
 

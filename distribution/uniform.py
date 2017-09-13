@@ -28,18 +28,18 @@ class Uniform(DistriBase):
         self.a = a
         self.b = b
         y_value = 1.0 / (b-a)
-        numSam = 1000          # number of samples
-        self.P = [ 0 for i in range(numSam)]
-        self.C = [ 0 for i in range(numSam)]
-        self.X = np.linspace(a-1, b+1, num=numSam, endpoint=False)
+        self.X = np.linspace(a-1, b+1, num=1000, endpoint=False)
         x_scale = (b-a+2)/1000.0
-        for i in range(0, numSam):
-            if (a-1 + i*x_scale) >= a and (a-1 + i*x_scale) < b:
-                self.P[i] = y_value
+        for i in self.X:
+            if i < a:
+                self.P.append(0)
+                self.C.append(0)
+            elif i > b:
+                self.P.append(0)
+                self.C.append(1)
             else:
-                self.P[i] = 0
-        for i in range(1, numSam):
-            self.C[i] = self.C[i-1] + self.P[i]*x_scale
+                self.P.append(y_value)
+                self.C.append((i-a) / (b-a))
 
     def __str__(self):
         return 'Name = %s, a = %f, b = %f' % (self.getName(), self.a, self.b)
@@ -54,7 +54,6 @@ class Uniform(DistriBase):
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/uniform-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -62,7 +61,6 @@ class Uniform(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/uniform-cdf.png')
 
         plt.show()
 

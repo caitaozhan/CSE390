@@ -39,7 +39,6 @@ class Bernoulli(DistriBase):
         plt.xlabel('x')
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
-        #plt.savefig('figures/bernoulli-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.bar(self.X, self.C, 0.6)
@@ -50,7 +49,6 @@ class Bernoulli(DistriBase):
         plt.xlabel('x')
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
-        #plt.savefig('figures/bernoulli-cdf.png')
 
         plt.show()
 

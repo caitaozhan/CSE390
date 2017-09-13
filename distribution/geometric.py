@@ -26,11 +26,10 @@ class Geometric(DistriBase):
         self.p = p
         self.X = np.arange(0, n+1)
         self.P.append(0)     # P(0) has no meanings
-        for i in range(1, n+1):
-            self.P.append( ((1-p)**(i-1)) * p)
         self.C.append(0)
         for i in range(1, n+1):
-            self.C.append(self.C[i-1] + self.P[i])
+            self.P.append( ((1-p)**(i-1)) * p)
+            self.C.append( 1 - (1-p)**i)
 
     def __str__(self):
         return 'Name = %s, p = %f' % (self.getName(), self.p)
@@ -46,7 +45,6 @@ class Geometric(DistriBase):
         plt.xlabel('x')
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
-        #plt.savefig('figures/geometric-pdf.png')
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -58,7 +56,6 @@ class Geometric(DistriBase):
         plt.ylabel('Pr[X<=x]')
         plt.title(str(self))
         plt.grid()
-        #plt.savefig('figures/geometric-cdf.png')
 
         plt.show()
 
