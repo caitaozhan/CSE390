@@ -26,11 +26,11 @@ class Binomial(DistriBase):
         DistriBase.__init__(self, 'Binomial')
         self.n = n
         self.p = p
-        self.X = np.arange(0,n)
-        for i in range(n):
+        self.X = np.arange(0, n+1)
+        for i in range(n+1):
             self.P.append(comb(n,i) * (p**i) * ((1-p)**(n-i)) )  
         self.C.append(self.P[0])
-        for i in range(1, n):
+        for i in range(1, n+1):
             self.C.append(self.C[i-1] + self.P[i])
 
     def __str__(self):
@@ -46,6 +46,7 @@ class Binomial(DistriBase):
         plt.xlabel('x')
         plt.ylabel('Pr[X=x]')
         plt.title(str(self))
+        plt.grid()
 
         plt.figure('Cumulative Distribution')
         plt.plot(self.X, self.C)
@@ -62,6 +63,6 @@ class Binomial(DistriBase):
 
 
 if __name__ == '__main__':
-    binomial = Binomial(20, 0.35)
+    binomial = Binomial(5, 0.35)
     binomial.plot()
 
